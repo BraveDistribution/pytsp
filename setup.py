@@ -38,11 +38,11 @@ setup(
     include_package_data=True,
     keywords='pytsp',
     name='pytsp',
-    packages=find_packages(include=['pytsp']),
+    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/BraveDistribution/pytsp',
-    version='0.1.1',
+    version='0.1.4',
     zip_safe=False,
 )

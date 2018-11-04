@@ -32,7 +32,7 @@ def _minimal_spanning_tree_prim(graph, starting_node):
     all_nodes = [i for i in range(node_count)]
 
     if starting_node is None:
-        starting_node = randint(0, node_count)
+        starting_node = randint(0, node_count-1)
 
     unvisited_nodes = all_nodes
     visited_nodes = [starting_node]
@@ -50,22 +50,5 @@ def _minimal_spanning_tree_prim(graph, starting_node):
         mst[edge_to, edge_from] = graph[edge_from, edge_to]
         unvisited_nodes.remove(edge_to)
         visited_nodes.append(edge_to)
-
     return mst
-
-
-def count_odd_even_nodes(graph):
-    """
-    Calculates number of odd and even nodes in graph
-    Args:
-        graph: adj. matrix as 2d np.array
-
-    Returns:
-    dictionary with odd and even nodes
-    """
-    # TODO: What to do if component is not connected?
-    if 2 % 2 == 0:
-        pass  # Even
-    else:
-        pass  # Odd
 

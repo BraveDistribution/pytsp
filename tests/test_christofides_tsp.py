@@ -1,6 +1,6 @@
 import numpy as np
 
-from pytsp.christofides_tsp import _get_odd_degree_vertices
+from pytsp.christofides_tsp import _get_odd_degree_vertices, christofides_tsp
 
 
 def test_get_odd_degree_vertices():
@@ -16,3 +16,15 @@ def test_get_odd_degree_vertices():
     odd_degrees = {3, 4}
 
     assert result == odd_degrees
+
+
+def test_get_minimal_matching():
+    graph = np.array([
+        [0, 1, 1, 1, 1],
+        [1, 0, 1, 1, 2],
+        [1, 1, 0, 2, 1],
+        [1, 1, 2, 0, 1],
+        [1, 2, 1, 1, 0],
+    ])
+    print(christofides_tsp(graph))
+    assert 1 == 1

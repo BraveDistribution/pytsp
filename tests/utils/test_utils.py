@@ -1,7 +1,7 @@
 import numpy as np
 
 from numpy.testing import assert_array_equal
-from pytsp.utils.utils import minimal_spanning_tree
+from pytsp.utils import minimal_spanning_tree
 
 
 def test_prim_algorithm():
@@ -29,3 +29,14 @@ def test_prim_algorithm():
     ])
 
     assert_array_equal(result, min_spanning_tree)
+
+
+def test_prim_algo2():
+    test = np.array([
+        [0, 2, 3, 5],
+        [2, 0, 8, 7],
+        [3, 8, 0, 4],
+        [5, 7, 4, 0],
+    ])
+    min_spanning_tree = minimal_spanning_tree(test)
+    print(min_spanning_tree)
