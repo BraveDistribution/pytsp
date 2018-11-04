@@ -22,12 +22,20 @@ Few algorithms for TSP problem in Python
 * Free software: MIT license
 * Documentation: https://pytsp.readthedocs.io.
 
+Notice
+--------
+This package is under heavy development. The code may not be efficient and may potentially lead to bugs. 
 
 Features
 --------
 
-* TODO
+* Christofides algorithm
+* Minimal spanning tree (Prim algorithm)
 
+Contributions
+-------
+* Feel free to contribute any way possible for you (Implement new algorithms or tests)
+* Feel free to ask for new algorithms via "Issues" tab.
 Credits
 -------
 
