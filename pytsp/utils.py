@@ -52,3 +52,9 @@ def _minimal_spanning_tree_prim(graph, starting_node):
         visited_nodes.append(edge_to)
     return mst
 
+
+def route_cost(graph, path):
+    cost = 0
+    for index in range(len(path) - 1):
+        cost = cost + graph[path[index]][path[index + 1]]
+    return cost
