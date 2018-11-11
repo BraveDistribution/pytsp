@@ -24,8 +24,8 @@ def tsp_2_opt(graph, route):
     best_found_route_cost = route_cost(graph, best_found_route)
     while improved:
         improved = False
-        for i in range(len(best_found_route) - 1):
-            for k in range(i + 1, len(best_found_route)):
+        for i in range(1, len(best_found_route) - 1):
+            for k in range(i + 1, len(best_found_route) - 1):
                 new_route = _swap_2opt(best_found_route, i, k)
                 new_route_cost = route_cost(graph, new_route)
                 if new_route_cost < best_found_route_cost:
