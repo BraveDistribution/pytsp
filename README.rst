@@ -32,6 +32,7 @@ Features
 * Christofides algorithm
 * Minimal spanning tree (Prim algorithm)
 * 2-opt algorithm
+* 3-opt algorithm
 
 Contributions
 -------
