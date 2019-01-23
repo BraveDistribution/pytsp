@@ -57,4 +57,6 @@ def route_cost(graph, path):
     cost = 0
     for index in range(len(path) - 1):
         cost = cost + graph[path[index]][path[index + 1]]
+    # add last edge to form a cycle.
+    cost = cost + graph[path[-1], path[0]]
     return cost
