@@ -31,7 +31,7 @@ def christofides_tsp(graph, starting_node=0):
                                   weight=graph[odd_degree_nodes[edge[0]]][odd_degree_nodes[edge[1]]])
     euler_tour = list(eulerian_circuit(euler_multigraph, source=starting_node))
     path = list(itertools.chain.from_iterable(euler_tour))
-    return _remove_repeated_vertices(path, starting_node)
+    return _remove_repeated_vertices(path, starting_node)[:-1]
 
 
 def _get_odd_degree_vertices(graph):
