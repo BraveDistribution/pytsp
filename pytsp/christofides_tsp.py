@@ -17,7 +17,16 @@ def christofides_tsp(graph, starting_node=0):
         graph: 2d numpy array matrix
         starting_node: of the TSP
     Returns:
-        TSP
+        tour given by christofies TSP algorithm
+
+    Examples:
+        >>> import numpy as np
+        >>> graph = np.array([[  0, 300, 250, 190, 230],
+        >>>                   [300,   0, 230, 330, 150],
+        >>>                   [250, 230,   0, 240, 120],
+        >>>                   [190, 330, 240,   0, 220],
+        >>>                   [230, 150, 120, 220,   0]])
+        >>> christofides_tsp(graph)
     """
 
     mst = minimal_spanning_tree(graph, 'Prim', starting_node=0)

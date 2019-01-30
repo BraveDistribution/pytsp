@@ -20,6 +20,15 @@ def tsp_2_opt(graph, route):
 
     Returns:
         optimal path according to 2-opt algorithm
+
+    Examples:
+        >>> import numpy as np
+        >>> graph = np.array([[  0, 300, 250, 190, 230],
+        >>>                   [300,   0, 230, 330, 150],
+        >>>                   [250, 230,   0, 240, 120],
+        >>>                   [190, 330, 240,   0, 220],
+        >>>                   [230, 150, 120, 220,   0]])
+        >>> tsp_2_opt(graph)
     """
     improved = True
     best_found_route = route
@@ -49,6 +58,14 @@ def tsp_3_opt(graph, route=None):
 
     Returns:
         optimal path according to 3-opt algorithm
+    Examples:
+        >>> import numpy as np
+        >>> graph = np.array([[  0, 300, 250, 190, 230],
+        >>>                   [300,   0, 230, 330, 150],
+        >>>                   [250, 230,   0, 240, 120],
+        >>>                   [190, 330, 240,   0, 220],
+        >>>                   [230, 150, 120, 220,   0]])
+        >>> tsp_3_opt(graph)
     """
     if route is None:
         route = christofides_tsp(graph)
