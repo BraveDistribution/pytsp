@@ -85,27 +85,26 @@ def get_solution_cost_change(graph, route, case, i, j, k):
         # first case is the current solution ABC
         return 0
     elif case == OptCase.opt_case_2:
-        # second case is the case ABC'
+        # second case is the case A'BC
         return graph[A, B] + graph[E, F] - (graph[B, F] + graph[A, E])
     elif case == OptCase.opt_case_3:
-        # AB'C
+        # ABC'
         return graph[C, D] + graph[E, F] - (graph[D, F] + graph[C, E])
     elif case == OptCase.opt_case_4:
-        # AB'C'
+        # A'BC'
         return graph[A, B] + graph[C, D] + graph[E, F] - (graph[A, D] + graph[B, F] + graph[E, C])
     elif case == OptCase.opt_case_5:
-        # ACB'
+        # A'B'C
         return graph[A, B] + graph[C, D] + graph[E, F] - (graph[C, F] + graph[B, D] + graph[E, A])
     elif case == OptCase.opt_case_6:
-        # AC'B'
+        # AB'C
         return graph[B, A] + graph[D, C] - (graph[C, A] + graph[B, D])
     elif case == OptCase.opt_case_7:
-        # AC'B
+        # AB'C'
         return graph[A, B] + graph[C, D] + graph[E, F] - (graph[B, E] + graph[D, F] + graph[C, A])
     elif case == OptCase.opt_case_8:
-        # ACB
-        return graph[A, B] + graph[C, D] + graph[E, F] - (graph[A, D] + graph[C, F] + graph[D, E])
-
+        # A'B'C
+        return graph[A, B] + graph[C, D] + graph[E, F] - (graph[A, D] + graph[C, F] + graph[B, E])
 
 def reverse_segments(route, case, i, j, k):
     """
@@ -131,24 +130,24 @@ def reverse_segments(route, case, i, j, k):
         # first case is the current solution ABC
         pass
     elif case == OptCase.opt_case_2:
-        # ABC'
+        # A'BC
         solution = list(reversed(first_segment)) + second_segment + third_segment
     elif case == OptCase.opt_case_3:
-        # AB'C
+        # ABC'
         solution = first_segment + second_segment + list(reversed(third_segment))
     elif case == OptCase.opt_case_4:
-        # AB'C'
+        # A'BC'
         solution = list(reversed(first_segment)) + second_segment + list(reversed(third_segment))
     elif case == OptCase.opt_case_5:
-        # ACB'
+        # A'B'C
         solution = list(reversed(first_segment)) + list(reversed(second_segment)) + third_segment
     elif case == OptCase.opt_case_6:
-        # AC'B'
+        # AB'C
         solution = first_segment + list(reversed(second_segment)) + third_segment
     elif case == OptCase.opt_case_7:
-        # AC'B
+        # AB'C'
         solution = first_segment + list(reversed(second_segment)) + list(reversed(third_segment))
     elif case == OptCase.opt_case_8:
-        # ACB
+        # A'B'C
         solution = list(reversed(first_segment)) + list(reversed(second_segment)) + list(reversed(third_segment))
     return solution

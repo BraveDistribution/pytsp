@@ -18,20 +18,20 @@ class TestKOpt():
                       [1, 4, 6, 2, 0, 1],
                       [2, 2, 7, 5, 1, 0]])
 
-    graph2 = np.array([[0,4,3,4,5,1,2,3,4],
-                       [4,0,1,4,3,4,6,2,1],
-                       [3,1,0,1,4,3,2,1,9],
-                       [4,4,1,0,4,6,1,2,3],
-                       [5,3,4,4,0,1,2,5,3],
-                       [1,4,3,6,1,0,2,5,3],
-                       [2,6,2,1,2,2,0,3,5],
-                       [3,2,1,2,5,5,3,0,9],
-                       [4,1,9,3,3,3,5,0,0]
+    graph2 = np.array([[0, 4, 3, 4, 5, 1, 2, 3, 4],
+                       [4, 0, 1, 4, 3, 4, 6, 2, 1],
+                       [3, 1, 0, 1, 4, 3, 2, 1, 9],
+                       [4, 4, 1, 0, 4, 6, 1, 2, 3],
+                       [5, 3, 4, 4, 0, 1, 2, 5, 3],
+                       [1, 4, 3, 6, 1, 0, 2, 5, 3],
+                       [2, 6, 2, 1, 2, 2, 0, 3, 5],
+                       [3, 2, 1, 2, 5, 5, 3, 0, 9],
+                       [4, 1, 9, 3, 3, 3, 5, 9, 0]
                        ])
 
     def test_get_all_segments(self):
         segments = k_opt_tsp.possible_segments(6)
-        assert [(0,2,4), (1,3,5)] == list(segments)
+        assert [(0, 2, 4), (1, 3, 5)] == list(segments)
 
     def test_get_all_segments2(self):
         segments = k_opt_tsp.possible_segments(7)
@@ -128,9 +128,8 @@ class TestKOpt():
         result = get_solution_cost_change(graph, route, OptCase.opt_case_8, 1, 3, 5)
         assert result == 13
 
-
     def test_2_opt_2(self):
-        route = [0,1,2,3,4,5,6,7,8]
+        route = [0, 3, 2, 1, 4, 5, 6, 7, 8]
         result = tsp_2_opt(self.graph2, route)
         new_route_cost = route_cost(self.graph2, result)
         old_route_cost = route_cost(self.graph2, route)
@@ -139,7 +138,7 @@ class TestKOpt():
         assert new_route_cost < old_route_cost
 
     def test_3_opt_2(self):
-        route = [0,1,2,3,4,5,6,7,8]
+        route = [0, 3, 2, 1, 4, 5, 6, 7, 8]
         result = tsp_3_opt(self.graph2, route)
         new_route_cost = route_cost(self.graph2, result)
         old_route_cost = route_cost(self.graph2, route)
