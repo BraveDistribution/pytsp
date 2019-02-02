@@ -33,6 +33,9 @@ Features
 * Minimal spanning tree (Prim algorithm)
 * 2-opt algorithm
 * 3-opt algorithm
+* Permutations
+* Nearest Neighbor
+
 
 Contributions
 -------
