@@ -11,18 +11,11 @@ def permutations_tsp(graph):
     Returns:
         list of nodes []
     """
-    route = range(1, len(graph))
+    route = range(0, len(graph))
     # generate all permutations
-    all_routes = [[0] + list(i) for i in permutations(route)]
+    all_routes = [list(i) for i in permutations(route)]
     # calculate all costs
     cost_all_routes = [route_cost(graph, i) for i in all_routes]
     # find the lowest cost
     best_route = all_routes[cost_all_routes.index(min(cost_all_routes))]
     return best_route
-
-
-
-
-
-
-

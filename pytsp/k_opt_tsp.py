@@ -1,3 +1,5 @@
+from itertools import cycle, islice, dropwhile
+
 from pytsp.christofides_tsp import christofides_tsp
 from pytsp.data_structures.opt_case import OptCase
 from pytsp.utils import route_cost
@@ -86,6 +88,11 @@ def tsp_3_opt(graph, route=None):
                 best_found_route = reverse_segments(best_found_route, best_return, i, j, k)
                 improved = True
                 break
+    # just to start with the same node -> we will need to cycle the results.
+    cycled = cycle(best_found_route)
+    skipped = dropwhile(lambda x: x != 0, cycled)
+    sliced = islice(skipped, None, len(best_found_route))
+    best_found_route = list(sliced)
     return best_found_route
 
 
