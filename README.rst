@@ -35,7 +35,7 @@ Features
 * 3-opt algorithm
 * Permutations
 * Nearest Neighbor
-
+* Simulated Annealing (SA)
 
 Contributions
 -------
