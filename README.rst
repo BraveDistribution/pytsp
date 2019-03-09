@@ -36,6 +36,7 @@ Features
 * Permutations
 * Nearest Neighbor
 * Simulated Annealing (SA)
+* B&B algorithm (LB based on 2 nearest neighbours, bad performance)
 
 Contributions
 -------
