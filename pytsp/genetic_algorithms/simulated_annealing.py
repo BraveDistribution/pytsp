@@ -56,7 +56,7 @@ def simulated_annealing(graph, path=None, temperature=1, n_of_iter=1000, alpha=0
 def _get_next_solution(path):
     new_solution = [node for node in path]
     left_index = random.randint(2, len(path) - 1)
-    right_index = random.randint(0, len(path) - 1 - left_index)
+    right_index = random.randint(0, len(path) - left_index)
     new_solution[right_index: (right_index + left_index)] = reversed(
         new_solution[right_index: (right_index + left_index)])
     return new_solution
