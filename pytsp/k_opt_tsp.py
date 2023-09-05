@@ -78,7 +78,7 @@ def tsp_3_opt(graph, route=None):
     best_found_route = route
     while improved:
         improved = False
-        for (i, j, k) in possible_segments(len(graph)):
+        for (i, j, k) in possible_segments(len(route)):
             # we check all the possible moves and save the result into the dict
             for opt_case in OptCase:
                 moves_cost[opt_case] = get_solution_cost_change(graph, best_found_route, opt_case, i, j, k)
