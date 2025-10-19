@@ -1,7 +1,5 @@
 from time import time
-from TSP.Tour import Tour
-from TSP.Instance import Instance
-from TSP.SolutionMethod import SolutionMethod
+from .utils import Instance, SolutionMethod, Tour
 from networkx.algorithms.approximation import christofides
 
 class Christofidesx(SolutionMethod):

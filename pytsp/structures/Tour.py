@@ -1,6 +1,3 @@
-from TSP import Instance
-from TSP import SolutionMethod
-
 
 class Tour:
     """
@@ -8,12 +5,12 @@ class Tour:
 
     Attributes:
         instance (Instance): The TSP problem instance.
-        sequence (list): The ordered list of node indices representing the tour.
         solution_method (str): The name of the method used to generate the tour.
+        sequence (list): The ordered list of node indices representing the tour.        
         runtime_in_sec (float or None): Time taken to compute the tour.
     """
 
-    def __init__(self, instance: Instance, solution_method: SolutionMethod, sequence: list, runtime_in_sec: float = None):
+    def __init__(self, instance: "Instance", solution_method: "SolutionMethod", sequence: list, runtime_in_sec: float = None):
         # Store basic tour information
         self.instance = instance
         self.solution_method = solution_method
@@ -47,8 +44,25 @@ class Tour:
         self.instance.plot(tour=self)
     
     def info_for_df(self):
+        """
+            Collects key information about the tour and returns it as a dictionary
+            for easy conversion into a pandas DataFrame.
+
+            Returns:
+                dict: A dictionary containing:
+                    - instance (str): Name of the TSP instance.
+                    - solution_method (str): Name of the solver used.
+                    - total_weights (float): Total weight of the computed tour (rounded to 4 decimals).
+                    - run_time_in_sec (float): Runtime in seconds (rounded to 4 decimals).
+                    - benchmark_name (str or None): Name of the benchmark if available.
+                    - gap_to_benchmark (float or None): Absolute gap to benchmark weight.
+                    - gap_to_benchmark_in_pct (float or None): Gap to benchmark in percentage.
+            """
+
+        # Get the total weight of the computed tour
         total_weight = self.get_total_weight()
         
+        # Build and return a dictionary with all relevant information
         return {"instance": self.instance.name,
                 "solution_method":self.solution_method.name, 
                 "total_weights": round(total_weight, 4),

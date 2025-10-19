@@ -1,8 +1,5 @@
 from time import time
-from TSP.Tour import Tour
-from TSP.Instance import Instance
-from TSP.SolutionMethod import SolutionMethod
-
+from .utils import Instance, SolutionMethod, Tour
 
 class NearestNeighbor(SolutionMethod):
 
@@ -11,7 +8,7 @@ class NearestNeighbor(SolutionMethod):
         self.name = "Nearest Neighbor"
 
 
-    def solve(self, instance) -> Tour:
+    def solve(self, instance: Instance) -> Tour:
         """
         Solve a TSP instance using the Nearest Neighbor heuristic.
 

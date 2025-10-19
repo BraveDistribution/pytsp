@@ -103,3 +103,7 @@ ENV/
 
 # IDE
 .idea/
+
+# Own
+tests/playground.py
+test/results
