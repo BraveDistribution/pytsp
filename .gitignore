@@ -106,4 +106,4 @@ ENV/
 
 # Own
 tests/playground.py
-test/results
+# test/results
