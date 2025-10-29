@@ -1,9 +1,7 @@
-
-
 def create_instance():
     """
-    This function demonstrates three ways of creating a TSP instance, using the well-known 14-city TSPLIB problem from Burma ("burma14").
-    burma14 is described as follows:
+    This function demonstrates four ways of creating a TSP instance, using the well-known 14-city TSPLIB problem from Burma ("burma14").
+    The burma14 TSPLIB file is described as follows:
 
     NAME: burma14
     TYPE: TSP
@@ -72,31 +70,40 @@ def create_instance():
         [398, 376, 211, 310, 636, 239, 232, 355, 498, 761, 464, 221, 247, 1]
     ]
 
-    # --- Possibility 1: Load instance from TSPLIB file ---
-    myTSP = create_instance_from_file(name='burma14')
-    print('Possibility 1: Load instance from TSPLIB file')
-    print('  ', myTSP.get_info(), 'Exemplary cost from 1->2:', myTSP.get_weight(source=1, target=2))
+    # --- Example 1: Load instance from TSPLIB file ---
+    my_instance = create_instance_from_file(name='burma14')
+    print('Example 1: Load instance from TSPLIB file')
+    print('  ', my_instance.get_info(), 'Exemplary cost from 1->2:', my_instance.get_weight_via_id(source_id=1, target_id=2))
 
-    # --- Possibility 2: Create instance from coordinates ---
-    myTSP = create_instance_from_coordinates(name='burma14_coordinates', 
-                                             coordinates=burma14_coordinates)
-    print('Possibility 2: Create instance from coordinates')
-    print('  ', myTSP.get_info(), 'Exemplary cost from 1->2:', myTSP.get_weight(source=1, target=2))
-
-    # --- Possibility 3: Create instance from cost matrix ---
-    # Note: If display coordinates are not provided, node indices start from 0
-    myTSP = create_instance_from_cost_matrix(name="burma14_matrix", 
+    # --- Example 2: Create instance from coordinates (weights via default GEO function) ---
+    my_instance = create_instance_from_coordinates(name='burma14_coordinates', 
+                                             coordinates=burma14_coordinates,
+                                             edge_weight_type="GEO",        # Note: This is the default value; it is explicitly stated here for completeness.
+                                             edge_weight_format="FUNCTION"  # Note: This is the default value; it is explicitly stated here for completeness.
+                                             )
+    print('Example 2: Create instance from coordinates (weights via default GEO function)')
+    print('   Note: When building from coordinates, node IDs begin at 1.')
+    print('  ', my_instance.get_info(), 'Exemplary cost from 1->2:', my_instance.get_weight_via_id(source_id=1, target_id=2))
+    
+    # --- Example 3: Create instance from cost matrix ---
+    my_instance = create_instance_from_cost_matrix(name="burma14_matrix", 
                                              cost_matrix=burma14_cost_matrix)
-    print('Possibility 3: Create instance from cost matrix')
-    print('  ', myTSP.get_info(), 'Exemplary cost from 0->1:', myTSP.get_weight(source=0, target=1), ' (connection from the previous examples)')
-    print('  ', myTSP.get_info(), 'Exemplary cost from 1->2:', myTSP.get_weight(source=1, target=2))
+    print('Example 3: Create instance from cost matrix')
+    print('   Note: When building from a cost matrix, node IDs begin at 0.')
+    print('  ', my_instance.get_info(), 'Exemplary cost from 0->1:', my_instance.get_weight_via_id(source_id=0, target_id=1), ' (connection from the previous examples)')
+    print('  ', my_instance.get_info(), 'Exemplary cost from 1->2:', my_instance.get_weight_via_id(source_id=1, target_id=2))
 
-    # --- Possibility 4: Create instance from cost matrix and display coordinates ---
-    myTSP = create_instance_from_cost_matrix(
+    # --- Example 4: Create instance from cost matrix and display coordinates ---
+    my_instance = create_instance_from_cost_matrix(
         name="burma14_matrix",
         cost_matrix=burma14_cost_matrix,
         display_data_type="TWOD_DISPLAY",
         display_coordinates=burma14_coordinates
     )
-    print('Possibility 4: Create instance from cost matrix and display coordinates')
-    print('  ', myTSP.get_info(), 'Exemplary cost from 1->2:', myTSP.get_weight(source=1, target=2))
+    print('Example 4: Create instance from cost matrix and display coordinates')
+    print('  ', my_instance.get_info(), 'Exemplary cost from 1->2:', my_instance.get_weight_via_id(source_id=1, target_id=2))
+    
+    # Plot TSP
+    fig = my_instance.plot()  # returns a Plotly Figure object
+    fig.show()
+

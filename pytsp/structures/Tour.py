@@ -1,4 +1,29 @@
 
+from datetime import datetime
+
+def get_sequence_weight(instance: "Instance", sequence: list, add_return_to_start: bool = False):
+    """
+    Calculate the total weight (cost) of a sequence.
+
+    Returns:
+        float: The total weight of the tour including return to the start.
+    """
+
+    local_sequence = sequence.copy()
+
+    if add_return_to_start:
+        local_sequence.append(local_sequence[0])
+
+    # Sum weights between consecutive nodes
+    total_weights = sum(
+        instance.get_weight(local_sequence[i], local_sequence[i + 1])
+        for i in range(len(local_sequence) - 1)
+    )
+    
+    # Return weights
+    return total_weights
+
+
 class Tour:
     """
     Represents a solution (tour) for a TSP instance.
@@ -19,7 +44,7 @@ class Tour:
 
         # Warn if the tour length doesn't match the instance size
         if len(sequence) != instance.number_of_stops + 1:
-            print(f"Warning: Tour length ({len(sequence)}) does not match instance size ({instance.number_of_stops}). Tour size should be {instance.number_of_stops + 1}")
+            solution_method.logger.warning(f"Tour length ({len(sequence)}) does not match instance size ({instance.number_of_stops}). Tour size should be {instance.number_of_stops + 1}")
 
     def get_total_weight(self):
         """
@@ -28,20 +53,14 @@ class Tour:
         Returns:
             float: The total weight of the tour including return to the start.
         """
-        # Sum weights between consecutive nodes
-        total_weights = sum(
-            self.instance.get_weight(self.sequence[i], self.sequence[i + 1])
-            for i in range(len(self.sequence) - 1)
-        )
-        
-        # Return weights
-        return total_weights
+
+        return get_sequence_weight(instance=self.instance, sequence=self.sequence)
 
     def plot(self):
         """
         Plot the tour using the instance's plotting method.
         """
-        self.instance.plot(tour=self)
+        return self.instance.plot(tour=self)
     
     def info_for_df(self):
         """
@@ -52,6 +71,8 @@ class Tour:
                 dict: A dictionary containing:
                     - instance (str): Name of the TSP instance.
                     - solution_method (str): Name of the solver used.
+                    - solution_method_info (str): Info of the solver used.
+                    - date_time ()
                     - total_weights (float): Total weight of the computed tour (rounded to 4 decimals).
                     - run_time_in_sec (float): Runtime in seconds (rounded to 4 decimals).
                     - benchmark_name (str or None): Name of the benchmark if available.
@@ -65,6 +86,8 @@ class Tour:
         # Build and return a dictionary with all relevant information
         return {"instance": self.instance.name,
                 "solution_method":self.solution_method.name, 
+                "solution_method_info":self.solution_method.info, 
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "total_weights": round(total_weight, 4),
                 "run_time_in_sec": round(self.runtime_in_sec, 4),
                 "benchmark_name": None if self.instance.benchmark is None else self.instance.benchmark.name, 
@@ -77,15 +100,15 @@ class Tour:
         Print detailed information about the tour.
         """
         print(f"Instance: {self.instance.name}")
-        print(f"  Solution method: {self.solution_method.name}")
+        print(f"  Solution method: {self.solution_method.name} ({self.solution_method.info})")
 
         # Print full tour if short, otherwise abbreviated
         if len(self.sequence) <= 8:
-            print(f"  Tour: {self.sequence}")
+            print(f"  Tour: {[n.id for n in self.sequence]}")
         else:
             print(
-                f"  Tour: [{self.sequence[0]}, {self.sequence[1]}, {self.sequence[2]}, {self.sequence[3]}, "
-                f"..., {self.sequence[-4]}, {self.sequence[-3]}, {self.sequence[-2]}, {self.sequence[-1]}]"
+                f"  Tour: [{self.sequence[0].id}, {self.sequence[1].id}, {self.sequence[2].id}, {self.sequence[3].id}, "
+                f"..., {self.sequence[-4].id}, {self.sequence[-3].id}, {self.sequence[-2].id}, {self.sequence[-1].id}]"
             )
 
         # Print total weight and benchmark gap if available

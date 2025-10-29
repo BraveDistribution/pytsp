@@ -1,20 +1,36 @@
 from time import time
-from .utils import Instance, SolutionMethod, Tour
+from .utils import Instance, SolutionMethod, Tour, Node2D
 from pyvrp import Model, stop
 
 
 class pyVRP(SolutionMethod):
+    """
+    Author: Arne Heinold (arne.heinold@klu.org)
+    """
 
-    def __init__(self, max_runtime_in_sec: float = 60, display: bool = False):
+    def __init__(self, logging_level: int = 30, max_runtime_in_sec: float = 2):
+        """
+        Initialize the solution approach from the pyVRP package.
 
-        self.name = "pyVRP"
+        Args:
+            logging_level (int): Controls verbosity of output. Levels: NOTSET(0), DEBUG(10), INFO(20), WARNING(30), ERROR(40), CRITICAL(50)
+            max_runtime_in_sec (int): Max. runtime in seconds
+        """
+
+        # Initialize core attributes for the solution method
+        super().__init__(name="pyVRP", 
+                         info=f"max_runtime_in_sec={max_runtime_in_sec}", 
+                         logging_level=logging_level)
+        
         self.max_runtime_in_sec = max_runtime_in_sec
-        self.display = display
 
 
     def solve(self, instance: Instance) -> Tour:
         """
         Solve a TSP instance using pyVRP's Hybrid Genetic Search (HGS).
+
+        Args:
+            instance (Instance): An instance of the TSP instance class.
 
         Returns:
             Tour: A Tour object containing the computed sequence and metadata.
@@ -22,14 +38,16 @@ class pyVRP(SolutionMethod):
 
         # Start timing the algorithm
         start_time = time()
+        self.logger.info("Creating pyVRP instance")
 
         # Check if node coordinates are not provided in the instance
-        if instance.node_coords is None:
+        if isinstance(instance.nodes[0], Node2D):
+            # Use the provided node coordinates from the instance
+            node_coords = {n: [n.x, n.y] for n in instance.nodes}            
+        else:
             # Initialize default coordinates [0, 0] for each node in the instance
             node_coords = {n: [0, 0] for n in instance.nodes}
-        else:
-            # Use the provided node coordinates from the instance
-            node_coords = instance.node_coords
+            
 
         # Initialize pyVRP model
         m = Model()
@@ -57,7 +75,10 @@ class pyVRP(SolutionMethod):
                 m.add_edge(locations[source], locations[target], distance=distance)
 
         # Solve using pyVRP
-        res = m.solve(stop=stop.MaxRuntime(self.max_runtime_in_sec), display=self.display)
+        self.logger.info("Solving TSP instance")
+        res = m.solve(stop=stop.MaxRuntime(self.max_runtime_in_sec), 
+                      display=True if self.logger.level <= 10 else False    # Logging levels: NOTSET(0), DEBUG(10), INFO(20), WARNING(30), ERROR(40), CRITICAL(50)
+                      )
         solution = res.best
 
         # Check and extract route

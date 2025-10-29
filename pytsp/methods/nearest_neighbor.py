@@ -1,16 +1,31 @@
 from time import time
+import numpy as np
 from .utils import Instance, SolutionMethod, Tour
 
 class NearestNeighbor(SolutionMethod):
+    """
+    Author: Arne Heinold (arne.heinold@klu.org)
+    """
 
-    def __init__(self):
+    def __init__(self, logging_level: int = 30):
+        """
+        Initialize the Nearest Neighbor heuristic.
 
-        self.name = "Nearest Neighbor"
+        Args:
+            logging_level (int): Controls verbosity of output. Levels: NOTSET(0), DEBUG(10), INFO(20), WARNING(30), ERROR(40), CRITICAL(50)
+        """
 
+        # Initialize core attributes for the solution method
+        super().__init__(name="Nearest Neighbor", 
+                         info=None, 
+                         logging_level=logging_level)
 
     def solve(self, instance: Instance) -> Tour:
         """
         Solve a TSP instance using the Nearest Neighbor heuristic.
+        
+        Args:
+            instance (Instance): An instance of the TSP instance class.
 
         Returns:
             Tour: A Tour object containing the computed sequence and metadata.

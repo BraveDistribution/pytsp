@@ -105,5 +105,4 @@ ENV/
 .idea/
 
 # Own
-tests/playground.py
-# test/results
+playground.py

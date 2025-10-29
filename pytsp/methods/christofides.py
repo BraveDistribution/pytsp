@@ -3,14 +3,29 @@ from .utils import Instance, SolutionMethod, Tour
 from networkx.algorithms.approximation import christofides
 
 class Christofidesx(SolutionMethod):
+    """
+    Author: Arne Heinold (arne.heinold@klu.org)
+    """
 
-    def __init__(self):
+    def __init__(self, logging_level: int = 30):
+        """
+        Initialize the Christofides heuristic.
 
-        self.name = "Christofides (networkx)"
+        Args:
+            logging_level (int): Controls verbosity of output. Levels: NOTSET(0), DEBUG(10), INFO(20), WARNING(30), ERROR(40), CRITICAL(50)
+        """
+
+        # Initialize core attributes for the solution method
+        super().__init__(name="Christofides", 
+                         info="Networkx implementation", 
+                         logging_level=logging_level)
 
     def solve(self, instance: Instance) -> Tour:
         """
-        Solve a TSP instance using the Christofides heuristic.
+        Solve a TSP instance using the Christofides heuristic as implemented in networkx.
+
+        Args:
+            instance (Instance): An instance of the TSP instance class.
 
         Returns:
             Tour: A Tour object containing the computed sequence and metadata.
@@ -25,6 +40,10 @@ class Christofidesx(SolutionMethod):
             # Solve via christofides (from networkx)
             sequence = christofides(G=graph)
 
+            # Covert to a sequence of node objects
+            id_to_node = {n.id: n for n in instance.nodes}
+            sequence = [id_to_node[n] for n in sequence]
+
             # Create and return the final tour object
             tour = Tour(
                 instance=instance,
@@ -36,4 +55,4 @@ class Christofidesx(SolutionMethod):
             return tour
         
         except Exception as error:
-            print(f"An error occurred while solving {instance.name} with {self.name}: {error}")
+            self.logger.error(f"An error occurred while solving {instance.name} with {self.name}: Method {error}")            

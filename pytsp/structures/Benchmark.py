@@ -11,7 +11,7 @@ class Benchmark:
         sequence (list, optional): Node sequence of the benchmark tour.
     """
 
-    def __init__(self, name: str, info: str, total_weight: float, runtime_in_sec: float, sequence: list = None):
+    def __init__(self, name: str, info: str, total_weight: float, runtime_in_sec: float = None, sequence: list = None):
         # Initialize benchmark attributes
         self.name = name
         self.info = info
