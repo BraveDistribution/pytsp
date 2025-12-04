@@ -56,7 +56,9 @@ author = u"BraveDistribution"
 # the built documents.
 #
 # The short X.Y version.
-version = pytsp.__version__
+from importlib.metadata import version as get_version
+version = get_version("pytsp")
+
 # The full version, including alpha/beta/rc tags.
 release = pytsp.__version__
 
