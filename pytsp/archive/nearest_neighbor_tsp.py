@@ -1,6 +1,6 @@
 import numpy as np
 
-from pytsp.constants import Constants
+from pytsp.archive.constants import Constants
 
 
 def nearest_neighbor_tsp(graph, starting_point=0):
@@ -54,8 +54,9 @@ def _find_neighbors(array_of_edges_from_node):
         Returns:
             List [] of all neighbors for given node
         """
+    MAX_WEIGHT_OF_EDGE = 100000
     mask = (array_of_edges_from_node > 0) & (
-        array_of_edges_from_node < Constants.MAX_WEIGHT_OF_EDGE)
+        array_of_edges_from_node < MAX_WEIGHT_OF_EDGE)
     return np.where(np.squeeze(np.asarray(mask)))
 
 
